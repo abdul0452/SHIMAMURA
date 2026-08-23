@@ -14,12 +14,9 @@ class ShopApiController extends Controller
     // Mengambil semua produk
     public function index()
     {
-        $products = Product::with(['store', 'productDetails'])->get();
-        
-        return response()->json([
-            'success' => true,
-            'data' => $products
-        ]);
+        $products = Product::with(['store', 'productDetail'])->get();
+
+        return response()->json($products);
     }
 
     // Proses Checkout
@@ -51,7 +48,6 @@ class ShopApiController extends Controller
                 'message' => 'Pesanan berhasil dibuat!',
                 'data' => $order
             ], 201);
-
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
