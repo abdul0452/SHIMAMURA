@@ -1,0 +1,20 @@
+# === BACKEND (Laravel) ===
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/.env.backup
+backend/storage/logs/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/bootstrap/cache/
+
+# === FRONTEND (React) ===
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# === GLOBAL ===
+.DS_Store
+.idea/
+.vscode/
