@@ -16,6 +16,8 @@ class EmployeesTable
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('position'),
                 TextColumn::make('store.store_name')->label('Store')->sortable(),
+                TextColumn::make('employee_number')->label('No. Karyawan')->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('date_of_joining')->date()->label('Tgl Bergabung')->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordActions([
                 EditAction::make(),

@@ -19,7 +19,7 @@ class StoreApiController extends Controller
     // GET /api/stores/{id} -> detail 1 toko + produknya
     public function show($id)
     {
-        $store = Store::with(['products.productDetail'])->find($id);
+        $store = Store::with('products')->find($id);
 
         if (!$store) {
             return response()->json([

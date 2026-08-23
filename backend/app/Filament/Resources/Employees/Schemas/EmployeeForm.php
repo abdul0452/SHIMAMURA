@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Employees\Schemas;
 
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -25,6 +26,13 @@ class EmployeeForm
             TextInput::make('position')
                 ->required()
                 ->maxLength(255),
+
+            TextInput::make('employee_number')
+                ->label('Nomor Karyawan')
+                ->maxLength(255),
+
+            DatePicker::make('date_of_joining')
+                ->label('Tanggal Bergabung'),
         ]);
     }
 }

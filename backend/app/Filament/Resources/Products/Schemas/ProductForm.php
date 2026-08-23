@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -30,6 +32,24 @@ class ProductForm
             TextInput::make('stock')
                 ->numeric()
                 ->required(),
+
+            TextInput::make('weight')
+                ->label('Berat (gram)')
+                ->numeric(),
+
+            Textarea::make('description')
+                ->label('Deskripsi')
+                ->columnSpanFull(),
+
+            FileUpload::make('image')
+                ->label('Gambar Produk')
+                ->image()
+                ->disk('public')
+                ->directory('products')
+                ->imageEditor()
+                ->maxSize(2048)
+                ->fetchFileInformation(false)
+                ->columnSpanFull(),
         ]);
     }
 }

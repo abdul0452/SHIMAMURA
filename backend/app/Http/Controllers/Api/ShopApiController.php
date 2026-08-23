@@ -14,7 +14,7 @@ class ShopApiController extends Controller
     // Mengambil semua produk
     public function index()
     {
-        $products = Product::with(['store', 'productDetail'])->get();
+       $products = Product::with('store')->get();
 
         return response()->json($products);
     }

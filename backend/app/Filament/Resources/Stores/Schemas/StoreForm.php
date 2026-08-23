@@ -13,9 +13,15 @@ class StoreForm
     {
         return $schema->components([
             Select::make('user_id')
-                ->relationship('user', 'name')
+                ->label('User (Pemilik Toko)')
+                ->relationship(
+                    name: 'user',
+                    titleAttribute: 'name',
+                    modifyQueryUsing: fn ($query) => $query->where('role', 'customer'),
+                )
                 ->required()
-                ->searchable(),
+                ->searchable()
+                ->preload(),
 
             TextInput::make('store_name')
                 ->required()

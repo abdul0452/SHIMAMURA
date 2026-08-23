@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\Tables;
 
 use Filament\Actions\EditAction;
 use Filament\Actions\DeleteAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -13,10 +14,16 @@ class ProductsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->disk('public')
+                    ->square(),
+
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('store.store_name')->label('Store'),
                 TextColumn::make('price')->money('IDR'),
                 TextColumn::make('stock'),
+                TextColumn::make('weight')->label('Berat (g)')->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordActions([
                 EditAction::make(),
