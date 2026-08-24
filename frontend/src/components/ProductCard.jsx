@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
     <div className="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300">
       <div className="relative overflow-hidden aspect-[3/4]">
         <img
-          src={product.image || `https://via.placeholder.com/300x400?text=${encodeURIComponent(product.name)}`}
+          src={product.image_url || `https://via.placeholder.com/300x400?text=${encodeURIComponent(product.name)}`}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />

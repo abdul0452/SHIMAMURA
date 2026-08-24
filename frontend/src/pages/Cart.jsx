@@ -40,7 +40,7 @@ export default function Cart() {
             {cart.map((item) => (
               <div key={item.id} className="flex gap-4 bg-white border border-gray-100 rounded-lg p-4">
                 <img
-                  src={item.image || `https://via.placeholder.com/100x100?text=${encodeURIComponent(item.name)}`}
+                  src={item.image_url || `https://via.placeholder.com/100x100?text=${encodeURIComponent(item.name)}`}
                   alt={item.name}
                   className="w-24 h-24 object-cover rounded-md"
                 />

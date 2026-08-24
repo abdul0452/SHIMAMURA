@@ -58,7 +58,7 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="bg-secondary rounded-lg overflow-hidden">
             <img
-              src={product.image || `https://via.placeholder.com/600x600?text=${encodeURIComponent(product.name)}`}
+              src={product.image_url || `https://via.placeholder.com/600x600?text=${encodeURIComponent(product.name)}`}
               alt={product.name}
               className="w-full aspect-square object-cover"
             />

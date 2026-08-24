@@ -1,15 +1,24 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Heart, ShoppingCart, User, Menu, X, ChevronDown, Store } from 'lucide-react';
+import { Search, ShoppingCart, User, LogOut, Menu, X, ChevronDown, Store } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { useApi } from '../hooks/useApi';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isStoreOpen, setIsStoreOpen] = useState(false);
+  const [isUserOpen, setIsUserOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const { totalItems } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    setIsUserOpen(false);
+    navigate('/');
+  };
 
   const { data: stores } = useApi('/stores');
 
@@ -67,7 +76,6 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link to="/blog" className="text-sm font-medium hover:text-accent transition">Blog</Link>
             <Link to="/contact" className="text-sm font-medium hover:text-accent transition">Contact</Link>
           </div>
 
@@ -86,10 +94,7 @@ export default function Navbar() {
             </div>
           </form>
 
-          <div className="flex items-center space-x-4">
-            <button className="hover:text-accent transition">
-              <Heart className="w-5 h-5" />
-            </button>
+          <div className="flex items-center space-x-5">
             <Link to="/cart" className="relative hover:text-accent transition">
               <ShoppingCart className="w-5 h-5" />
               {totalItems > 0 && (
@@ -98,9 +103,44 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
-            <Link to="/login" className="hover:text-accent transition">
-              <User className="w-5 h-5" />
-            </Link>
+
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserOpen(!isUserOpen)}
+                  className="flex items-center space-x-2 hover:text-accent transition"
+                >
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-medium">
+                    {user?.name?.charAt(0)?.toUpperCase() || <User className="w-4 h-4" />}
+                  </div>
+                  <span className="hidden md:inline text-sm font-medium max-w-[100px] truncate">
+                    {user?.name || 'Account'}
+                  </span>
+                  <ChevronDown className="hidden md:inline w-4 h-4" />
+                </button>
+
+                {isUserOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 border">
+                    <div className="px-4 py-2 border-b">
+                      <div className="text-sm font-medium truncate">{user?.name}</div>
+                      <div className="text-xs text-gray-500 truncate">{user?.email}</div>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-left hover:bg-secondary text-red-600"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login" className="hover:text-accent transition">
+                <User className="w-5 h-5" />
+              </Link>
+            )}
+
             <button
               className="lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -116,8 +156,15 @@ export default function Navbar() {
               <Link to="/" className="text-sm font-medium py-2" onClick={() => setIsMenuOpen(false)}>Home</Link>
               <Link to="/shop" className="text-sm font-medium py-2" onClick={() => setIsMenuOpen(false)}>Shop</Link>
               <Link to="/stores" className="text-sm font-medium py-2" onClick={() => setIsMenuOpen(false)}>Stores</Link>
-              <Link to="/blog" className="text-sm font-medium py-2" onClick={() => setIsMenuOpen(false)}>Blog</Link>
               <Link to="/contact" className="text-sm font-medium py-2" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              {isAuthenticated && (
+                <button
+                  onClick={() => { handleLogout(); setIsMenuOpen(false); }}
+                  className="text-sm font-medium py-2 text-left text-red-600"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         )}
