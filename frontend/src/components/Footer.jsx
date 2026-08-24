@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Youtube, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -12,10 +13,10 @@ export default function Footer() {
               Discover the latest fashion trends with our curated collection of premium styles for every occasion.
             </p>
             <div className="flex space-x-4 mt-6">
-              <a href="#" className="hover:text-accent transition"><Facebook className="w-5 h-5" /></a>
-              <a href="#" className="hover:text-accent transition"><Instagram className="w-5 h-5" /></a>
-              <a href="#" className="hover:text-accent transition"><Twitter className="w-5 h-5" /></a>
-              <a href="#" className="hover:text-accent transition"><Youtube className="w-5 h-5" /></a>
+              <a href="#" className="hover:text-accent transition"><FaFacebookF className="w-5 h-5" /></a>
+              <a href="#" className="hover:text-accent transition"><FaInstagram className="w-5 h-5" /></a>
+              <a href="#" className="hover:text-accent transition"><FaTwitter className="w-5 h-5" /></a>
+              <a href="#" className="hover:text-accent transition"><FaYoutube className="w-5 h-5" /></a>
             </div>
           </div>
 
