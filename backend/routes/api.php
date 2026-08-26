@@ -19,6 +19,7 @@ Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:s
 // Tambahkan kode route untuk toko kita di bawah sini
 Route::get('/products', [ShopApiController::class, 'index']);
 Route::post('/checkout', [ShopApiController::class, 'checkout']);
+Route::get('/orders/{order}', [ShopApiController::class, 'orderStatus']);
 
 // Route untuk daftar toko & detail toko
 Route::get('/stores', [StoreApiController::class, 'index']);
