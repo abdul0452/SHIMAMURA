@@ -16,8 +16,9 @@ class ProductsTable
             ->columns([
                 ImageColumn::make('image')
                     ->label('Gambar')
-                    ->disk('public')
-                    ->square(),
+                    ->defaultImageUrl(fn ($record) => $record->image_url)
+                    ->square()
+                    ->height(80),
 
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('store.store_name')->label('Store'),
