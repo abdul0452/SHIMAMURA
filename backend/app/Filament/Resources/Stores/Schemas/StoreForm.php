@@ -17,7 +17,7 @@ class StoreForm
                 ->relationship(
                     name: 'user',
                     titleAttribute: 'name',
-                    modifyQueryUsing: fn ($query) => $query->where('role', 'customer'),
+                    modifyQueryUsing: fn ($query) => $query->whereIn('role', ['customer', 'admin']),
                 )
                 ->required()
                 ->searchable()
