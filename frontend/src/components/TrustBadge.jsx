@@ -13,7 +13,7 @@ export default function TrustBadge() {
       <div className="container-custom">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start gap-4">
+            <div key={index} className="flex items-start justify-center gap-4">
               <feature.icon className="w-8 h-8 text-accent flex-shrink-0" />
               <div>
                 <h4 className="font-semibold text-sm mb-1">{feature.title}</h4>

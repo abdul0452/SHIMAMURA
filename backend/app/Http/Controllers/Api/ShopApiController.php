@@ -13,10 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class ShopApiController extends Controller
 {
-    // Mengambil semua produk
-    public function index()
+    // Mengambil produk (support limit acak untuk Trending & Best Selling)
+    public function index(Request $request)
     {
-       $products = Product::with('store')->get();
+        $query = Product::with('store');
+
+        if ($request->boolean('best_seller')) {
+            // Best Selling Product -> 4 produk acak
+            $products = $query->inRandomOrder()->limit(4)->get();
+        } elseif ($request->filled('limit')) {
+            // Trending Product -> sejumlah $limit produk acak (default dari frontend: 8)
+            $products = $query->inRandomOrder()->limit((int) $request->query('limit'))->get();
+        } else {
+            // Tanpa parameter -> tetap ambil semua produk (misal untuk halaman Shop)
+            $products = $query->get();
+        }
 
         return response()->json($products);
     }
@@ -90,7 +101,7 @@ class ShopApiController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memproses pesanan: '.$e->getMessage(),
+                'message' => 'Gagal memproses pesanan: ' . $e->getMessage(),
             ], 500);
         }
     }
@@ -105,7 +116,7 @@ class ShopApiController extends Controller
             'status' => $order->status,
             'total_amount' => $order->total_amount,
             'payment_status' => $order->payment?->status,
-            'items' => $order->orderDetails->map(fn ($d) => [
+            'items' => $order->orderDetails->map(fn($d) => [
                 'product_name' => $d->product->name ?? '-',
                 'quantity' => $d->quantity,
                 'unit_price' => $d->unit_price,
