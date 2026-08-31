@@ -20,6 +20,7 @@ Route::post('/logout', [AuthApiController::class, 'logout'])->middleware('auth:s
 Route::get('/products', [ShopApiController::class, 'index']);
 Route::post('/checkout', [ShopApiController::class, 'checkout']);
 Route::get('/orders/{order}', [ShopApiController::class, 'orderStatus']);
+Route::post('/orders/{order}/sync-status', [ShopApiController::class, 'syncStatus']);
 
 // Route untuk daftar toko & detail toko
 Route::get('/stores', [StoreApiController::class, 'index']);

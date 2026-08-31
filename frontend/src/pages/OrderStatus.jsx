@@ -27,7 +27,9 @@ export default function OrderStatus() {
 
   const fetchOrder = async () => {
     try {
-      const res = await api.get(`/orders/${id}`);
+      // pakai sync-status supaya status order dicocokkan langsung ke Midtrans
+      // (jaga-jaga kalau webhook belum sampai ke backend)
+      const res = await api.post(`/orders/${id}/sync-status`);
       setOrder(res.data);
     } catch {
       setOrder(null);
